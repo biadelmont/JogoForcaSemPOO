@@ -37,6 +37,10 @@ public class Forca {
         */
         String palavraChave = null;
         int qtdLetras = 0;
+        int acertou = 0;
+        int pontuacao = 10;
+        String novaDica = "";
+
 
         /*
         println é o commando utilizado para exibir uma mensagem na tela. print( nao pula linha no console), println(pula uma linha depois do fim da mensagem)
@@ -96,28 +100,50 @@ public class Forca {
         	listaEmString = listaEmString + s;
         }
         
-        System.out.println("Qual letra voce chuta? --> ");
-        String letraDigitada = in.next().toLowerCase();
+        System.out.println(listaEmString);
         
         String[] listaLetrasCorretas = palavraChave.split("");//lista de string
         
-        int i=0;
-        qtdLetras = palavraChave.length();
-        
-        while(i < qtdLetras) {
-        	if(listaLetrasCorretas[i].equals(letraDigitada)) {
-        		dica[i] = letraDigitada;
+        while (pontuacao > 0) {
+            
+            if(palavraChave.equals(novaDica)) { //if(!novaDica.contains(" __ ")){
+            	System.out.println("Você ganhou... Parabéns!!!");
+            	break;
+            }
+            
+            System.out.println("Qual letra voce chuta? --> ");
+            String letraDigitada = in.next().toLowerCase();
+            
+            int i=0;
+            qtdLetras = palavraChave.length();
+            
+            while(i < qtdLetras) {
+            	if(listaLetrasCorretas[i].equals(letraDigitada)) {
+            		dica[i] = letraDigitada;
+            		acertou = 1;
+            	} 
+            	         	
+            }
+            
+            if(acertou ==1) {
+        		acertou = 0;
+        	}else {
+        		pontuacao -=1;
         	}
         	i++;
+            
+            
+            for(String s: dica) {
+            	novaDica += s;
+            }
+
+            
+    		System.out.println("\n Voce ainda tem: "+ pontuacao + "chances!!\n");
+
+            System.out.print(novaDica);
+
         }
         
-        String novaDica = "";
-        
-        for(String s: dica) {
-        	novaDica += s;
-        }
-        
-        System.out.print(novaDica);
         
         //System.out.println(palavraChave);
 
